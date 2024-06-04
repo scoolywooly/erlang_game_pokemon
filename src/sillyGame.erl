@@ -9,8 +9,9 @@ monsterDatabase(MonsterStats) ->
     receive
         {Sender, Damage} ->
         NewHealth = maps:get(health, MonsterStats) - Damage,
-        monsterdatabase(#{"health" => NewHealth}),
-        Sender ! {maps:get(health, MonsterStats), Damage}
+        
+        Sender ! {maps:get(health, MonsterStats), Damage},
+        monsterDatabase(#{health => NewHealth})
     end.
 
 playerAttack(Pid) ->
